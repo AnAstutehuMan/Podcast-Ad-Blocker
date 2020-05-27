@@ -1,10 +1,15 @@
 import speech_recognition as sr
+from playsound import playsound
+from os import path
 
 r = sr.Recognizer()
 
-clip = sr.AudioFile('clip.wav')
+audiopath = path.join(path.dirname(__file__),'test.wav')
 
-with clip as source:
+with sr.AudioFile(audiopath) as source:
     audio = r.record(source)
 
 print(r.recognize_google(audio))
+
+playsound(audiopath)
+
