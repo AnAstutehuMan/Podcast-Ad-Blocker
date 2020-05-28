@@ -27,6 +27,13 @@ def recognize_clips(step, repeat):
             print(str(i)+"   "+reconaudio[i])
 
 
+def temporary_wav(step, repeat):
+    for i in range(repeat):
+        x,_ = librosa.load("./" + "clip" + str(i) + ".wav", sr=16000)
+        sf.write('tmp.wav', x, 16000)
+        wave.open('tmp.wav','r')
+        recognize_clips(step, repeat)
+
 def populate_times(path, time):
     global audioclip, loadedaudio, reconaudio
     audio = pd.AudioSegment.from_file(audiopath, "wav")
@@ -37,9 +44,8 @@ def populate_times(path, time):
     for i in range(repeat):
         export = audio[i * step: (i+1) * step].export("clip"+str(i)+".wav")
         audioclip.append(export)
-    print(type(step))
-    print(type(repeat))
-    #  recognize_clips(step, repeat)
+    # recognize_clips(step, repeat)
+    temporary_wav(step, repeat)
 
 
 populate_times(audiopath, 5)
