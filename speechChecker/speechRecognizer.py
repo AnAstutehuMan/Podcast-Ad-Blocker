@@ -12,4 +12,3 @@ with sr.AudioFile(audiopath) as source:
 print(r.recognize_google(audio))
 
 playsound(audiopath)
-
