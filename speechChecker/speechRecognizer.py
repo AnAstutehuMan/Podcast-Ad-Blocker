@@ -37,7 +37,9 @@ def populate_times(path, time):
     for i in range(repeat):
         export = audio[i * step: (i+1) * step].export("clip"+str(i)+".wav")
         audioclip.append(export)
-    recognize_clips(step, repeat)
+    print(type(step))
+    print(type(repeat))
+    #  recognize_clips(step, repeat)
 
 
 populate_times(audiopath, 5)
