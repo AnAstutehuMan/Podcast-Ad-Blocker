@@ -102,7 +102,7 @@ def splitAudio(filePath, interval):
 def recognizeAudio(filePath, numberOfSplits):
     for i in range(numberOfSplits):
         with sr.AudioFile("clip" + str(i) + ".wav") as source:
-            f.write(r.recognize_google(r.record(source))))
+            f.write(r.recognize_google(r.record(source)))
 
 splitAudio('clip.wav', 2)
 f.close()
