@@ -51,8 +51,7 @@ populate_times(audiopath, 1.5)
 
 
 r = sr.Recognizer()
-f = open("transcript", "a")
-
+f = open("transcript.txt", "a")
 
 def splitAudio(filePath, interval):
     intervalOne = 0
