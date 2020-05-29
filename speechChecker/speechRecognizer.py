@@ -47,7 +47,7 @@ populate_times(audiopath, 1.5)
 # playsound(audiopath)
 
 
-# Saketh: rewrote the code
+# Updated: Saketh: rewrote the code
 
 
 r = sr.Recognizer()
