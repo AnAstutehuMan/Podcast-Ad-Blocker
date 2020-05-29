@@ -25,14 +25,6 @@ def recognize_clips(step, repeat):
             reconaudio.append(r.recognize_google(loadedaudio[i]))
             print("Time : "+str(i*step/1000)+" - "+str((i+1)*step/1000)+"| Words : "+str(reconaudio[i]))
 
-
-def temporary_wav(step, repeat):
-    for i in range(repeat):
-        x,_ = librosa.load("./" + "clip" + str(i) + ".wav", sr=16000)
-        sf.write('tmp.wav', x, 16000)
-        wave.open('tmp.wav','r')
-        recognize_clips(step, repeat)
-
 def populate_times(path, time):
     global audioclip, loadedaudio, reconaudio
     audio = pd.AudioSegment.from_file(audiopath, "wav")
