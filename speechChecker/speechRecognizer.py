@@ -37,7 +37,7 @@ def populate_times(path, time):
     repeat = math.floor(repeat)
     for i in range(repeat):
         export = audio[i * step: (i+1) * step].export("clip" +
-                                  str(i)+".wav", format="wav")
+                                                      str(i)+".wav", format="wav")
         audioclip.append("clip"+str(i)+".wav")
     recognize_clips(step, repeat)
 
@@ -73,36 +73,8 @@ def splitAudio(filePath, interval):
 def recognizeAudio(filePath, numberOfSplits):
     for i in range(numberOfSplits):
         with sr.AudioFile("clip" + str(i) + ".wav") as source:
-            f.write(r.recognize_google(r.record(source))))
-
-
-splitAudio('clip.wav', 2)
-
-
-r=sr.Recognizer()
-f=open("transcript", "a")
-
-
-def splitAudio(filePath, interval):
-    intervalOne=0
-    intervalTwo=interval * 1000
-
-    numberOfSplits=math.floor(AudioSegment.from_wav(
-        filePath).duration_seconds / interval)
-
-    for i in range(numberOfSplits):
-        AudioSegment.from_wav(filePath)[intervalOne:intervalTwo].export(
-            "clip" + str(i) + ".wav", format = "wav")
-        intervalOne=intervalTwo
-        intervalTwo=intervalTwo + (interval * 1000)
-
-    recognizeAudio(filePath, numberOfSplits)
-
-
-def recognizeAudio(filePath, numberOfSplits):
-    for i in range(numberOfSplits):
-        with sr.AudioFile("clip" + str(i) + ".wav") as source:
             f.write(r.recognize_google(r.record(source)))
+
 
 splitAudio('clip.wav', 2)
 f.close()
