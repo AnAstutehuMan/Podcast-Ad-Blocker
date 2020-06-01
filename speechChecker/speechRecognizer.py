@@ -1,8 +1,9 @@
 import math
-
+import json
 import speech_recognition
 from pydub import AudioSegment
 
+filterwords = ["sponser"]
 
 def splitAudio(filePath, interval):
     # Mutiformat support
@@ -30,5 +31,6 @@ def recognizeAudio(filePath, numberOfSteps):
     f.write("}")
     f.close()
 
-
+def filterAudio():
+    f = open("transcript.json","r+")
 splitAudio('test.wav', 1.5)
