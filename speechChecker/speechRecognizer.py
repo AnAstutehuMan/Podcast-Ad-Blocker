@@ -1,8 +1,7 @@
 import json
 import math
-from glob import glob
-
 import os
+from glob import glob
 
 import speech_recognition
 from pydub import AudioSegment
@@ -53,7 +52,8 @@ def filterAudio():
 
 
 def mergeAudio():
-    listAudio = [AudioSegment.from_wav(files) for files in glob("clip (*).wav")]
+    listAudio = [AudioSegment.from_wav(files)
+                 for files in glob("clip (*).wav")]
     combined = AudioSegment.empty()
 
     for song in listAudio:
