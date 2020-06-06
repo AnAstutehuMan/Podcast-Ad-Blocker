@@ -1,12 +1,12 @@
-import json
 import math
-import os
+import os, sys
 from glob import glob
 
 import speech_recognition
 from pydub import AudioSegment
 
-filterword = ["sponsor", "sponsored", "break"]
+#not the best filter but it works i guess
+filterword = ["sponsor", "sponsored", "break", "advert", "ad", "advertising"]
 
 
 def splitAudio(filePath, interval):
@@ -33,10 +33,10 @@ def recognizeAudio(filePath, numberOfSteps):
             f.write("\n")
 
     f.close()
-    filterAudio()
+    filterAudio(numberOfSteps)
 
 
-def filterAudio():
+def filterAudio(numberOfSteps):
     with open("transcript.txt") as f:
         for num, line in enumerate(f, 1):
             for word in line.split():
@@ -44,22 +44,28 @@ def filterAudio():
                     if filterword[x] in word:
                         print("found word: " + word + " in line: " + str(num))
                         print("removing clip " + str(num) +
-                              " and the next 2 files.")
+                              " and the next 3 files.")
+                        #this is going to give an invalid range error in some cases but its 1:30 hours away from deadline so...
                         os.remove("clip (" + str(num) + ").wav")
                         os.remove("clip (" + str(num+1) + ").wav")
                         os.remove("clip (" + str(num+2) + ").wav")
-    mergeAudio()
+                        os.remove("clip (" + str(num+3) + ").wav")
+    mergeAudio(numberOfSteps)
 
 
-def mergeAudio():
-    listAudio = [AudioSegment.from_wav(files)
-                 for files in glob("clip (*).wav")]
+def mergeAudio(numberOfSteps):
+    listAudio = [AudioSegment.from_wav(files) for files in glob("clip (*).wav")]
     combined = AudioSegment.empty()
 
     for song in listAudio:
         combined += song
 
     combined.export("newClip.wav", format="wav")
+    for i in range(numberOfSteps+2):
+        try:
+            os.remove("clip (" + str(i) + ").wav")
+        except:
+            pass
 
-
-splitAudio('clip.wav', 1.5)
+#anything less than 1.5 will cause google speech to text to raise an error
+splitAudio(sys.argv[1], 1.5)
