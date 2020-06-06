@@ -31,6 +31,7 @@ def recognizeAudio(filePath, numberOfSteps):
             f.write(r.recognize_google(r.record(source)))
         if i != numberOfSteps - 1:
             f.write("\n")
+
     f.close()
     filterAudio()
 
@@ -47,7 +48,6 @@ def filterAudio():
                         os.remove("clip (" + str(num) + ").wav")
                         os.remove("clip (" + str(num+1) + ").wav")
                         os.remove("clip (" + str(num+2) + ").wav")
-
     mergeAudio()
 
 
